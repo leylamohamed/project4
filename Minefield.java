@@ -188,10 +188,60 @@ public class Minefield {
      * @function This method should print the entire minefield, regardless if the user has guessed a square.
      * *This method should print out when debug mode has been selected. 
      */
+     
     public void debug() {
-
+        System.out.println("  0 1 2 3 4");
+        for(int i = 0; i < rows; i++) {
+            System.out.print(i + " ");
+            for (int j = 0; j < columns; j++) {
+                String status = field[i][j].getStatus();
+                if (status != "-" ) { //if not empty
+                    System.out.print(getColor(field[i][j])+status+"u001b[0m");
+                }
+                else {
+                    System.out.print(status + " ");
+                }
+            }
+        }
     }
-
+    
+   public String getColor(Cell c) { //helper method to assign colors to Cells
+        String color = "";
+        if (c.getStatus().equals("M")) {
+            color = ANSI_RED;
+        }
+        if (c.getStatus().equals("0")) {
+            color = ANSI_YELLOW;
+        }
+        if (c.getStatus().equals("1")) {
+            color = ANSI_BLUE_BRIGHT;
+        }
+        if (c.getStatus().equals("2")) {
+            color = ANSI_BLUE;
+        }
+        if (c.getStatus().equals("3")) {
+            color = ANSI_RED_BRIGHT;
+        }
+        if (c.getStatus().equals("4")) {
+            color = ANSI_RED;
+        }
+        if (c.getStatus().equals("5")) {
+            color =ANSI_GREEN;
+        }
+        if (c.getStatus().equals("6")) {
+            color = ANSI_PURPLE;
+        }
+        if (c.getStatus().equals("7")) {
+            color = ANSI_CYAN;
+        }
+        if (c.getStatus().equals("8")) {
+            color = ANSI_YELLOW_BRIGHT;
+        }
+        else if (c.getStatus().equals("9")) {
+            color = ANSI_RED;
+        }
+        return color;
+    }
     /**
      * toString
      *
