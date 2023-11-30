@@ -159,6 +159,20 @@ public class Minefield {
      * @param y     The y value the user entered.
      */
     public void revealStartingArea(int x, int y) {
+        Q1Gen<Cell> queue = new Q1Gen<>();
+        Cell startPosition = field[x][y];
+        String startStatus = startPosition.getStatus();
+        queue.add(startPosition);
+        while(queue.length() > 0) {
+            Cell removed = queue.remove();
+            //index for removed cell
+
+            removed.setRevealed(true);
+            if (removed.getStatus().equals("M")) {
+                break;
+            }
+            //if statements for adjacent cells
+        }
 
     }
 
