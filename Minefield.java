@@ -76,7 +76,18 @@ public class Minefield {
      * @param mines      Number of mines to place.
      */
     public void createMines(int x, int y, int mines) {
+        Random rand = new Random();
+        int minesPlaced = 0;
+        while (minesPlaced < mines) {
+            int randX = rand.nextInt(rows);
+            int randY = rand.nextInt(columns);
 
+            // Check if the coordinate is valid and not equal to the starting cell
+            if (randX != x && randY != y && !field[randX][randY].getStatus().equals("M")) {
+                field[randX][randY].setStatus("M");
+                minesPlaced++;
+            }
+        }
     }
 
     /**
