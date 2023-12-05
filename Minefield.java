@@ -49,6 +49,12 @@ public class Minefield {
         this.columns = columns;
         this.flags = flags;
         this.field = new Cell[rows][columns];
+        
+        for (int i = 0; i < rows; i++) { //make all cells blank
+            for (int j = 0; j < columns; j++) {
+                field[i][j].setStatus("-");
+            }
+        }
     }
 
     /**
@@ -176,15 +182,62 @@ public class Minefield {
         queue.add(startPosition);
         while(queue.length() > 0) {
             Cell removed = queue.remove();
-            //index for removed cell
-
             removed.setRevealed(true);
+            int currX = getX(removed);
+            int currY = getY(removed);
             if (removed.getStatus().equals("M")) {
                 break;
             }
-            //if statements for adjacent cells
-        }
 
+            //if statements for adjacent cells
+            if (verifyInBounds(currX, currY-1) && !field[currX][currY-1].getRevealed()) { //left
+                queue.add(field[currX][currY-1]);
+            }
+            if(verifyInBounds(currX, currY+1) && !field[currX][currY+1].getRevealed()) { //right
+                queue.add(field[currX][currY+1]);
+            }
+            if(verifyInBounds(currX-1, currY) && !field[currX-1][currY].getRevealed()) { //top
+                queue.add(field[currX-1][currY]);
+            }
+            if(verifyInBounds(currX+1, currY) && !field[currX+1][currY].getRevealed()) { //bottom
+                queue.add(field[currX+1][currY]);
+            }
+            if(verifyInBounds(currX-1, currY-1) && !field[currX-1][currY-1].getRevealed()) { //top left
+                queue.add(field[currX-1][currY-1]);
+            }
+            if(verifyInBounds(currX-1, currY+1) && !field[currX-1][currY+1].getRevealed()) { //top right
+                queue.add(field[currX-1][currY+1]);
+            }
+            if(verifyInBounds(currX+1, currY-1) && !field[currX+1][currY-1].getRevealed()) { //bottom left
+                queue.add(field[currX+1][currY-1]);
+            }
+            if(verifyInBounds(currX+1, currY+1) && !field[currX+1][currY+1].getRevealed()) { //bottom right
+                queue.add(field[currX+1][currY+1]);
+            }
+        }
+    }
+    public int getX(Cell c) { //helper method to get the x index of a cell
+        for(int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (field[i][j] == c) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    public int getY(Cell c) { // helper method to get the y index of a cell
+        for(int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (field[i][j] == c) {
+                    return j;
+                }
+            }
+        }
+        return -1;
+    }
+    public boolean verifyInBounds(int x, int y) { //helper method to check if an index is in bounds
+        return x >= 0 && x < field.length && y >= 0 && y < field[0].length;
     }
 
     /**
