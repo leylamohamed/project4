@@ -131,6 +131,7 @@ public class Minefield {
                 }
             }
         }
+        field[x][y].setRevealed(true);
         return answer;
     }
 
