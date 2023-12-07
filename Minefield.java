@@ -67,7 +67,87 @@ public class Minefield {
      * 
      */
     public void evaluateField() {
-
+        for(int i = 0; i < field.length; i++) {
+            for(int j = 0; j < field[0].length; j++) {
+                if (field[i][j].getStatus().equals("M")) { //mine found
+                    incrementAdjacent(i,j);
+                }
+            }
+        }
+    }
+    public void incrementAdjacent(int x, int y) { //increments the status of adjacent cells if they touch a mine
+        if (verifyInBounds(x, y-1)) { //left
+            if (!field[x][y-1].getStatus().equals("M")) { //check if cell is empty too?
+                int newStatus = Integer.parseInt(field[x][y-1].getStatus()) + 1;
+                field[x][y-1].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x, y-1);
+            }
+        }
+        if(verifyInBounds(x, y+1)) { //right
+            if (!field[x][y+1].getStatus().equals("M")) {
+                int newStatus = Integer.parseInt(field[x][y+1].getStatus()) + 1;
+                field[x][y+1].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x, y+1);
+            }
+        }
+        if(verifyInBounds(x-1, y)) { //top
+            if (!field[x-1][y].getStatus().equals("M")) {
+                int newStatus = Integer.parseInt(field[x-1][y].getStatus()) + 1;
+                field[x-1][y].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x-1, y);
+            }
+        }
+        if(verifyInBounds(x+1, y)) { //bottom
+            if (!field[x+1][y].getStatus().equals("M")) {
+                int newStatus = Integer.parseInt(field[x+1][y].getStatus()) + 1;
+                field[x+1][y].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x+1, y);
+            }
+        }
+        if(verifyInBounds(x-1, y-1)) { //top left
+            if (!field[x-1][y-1].getStatus().equals("M")) {
+                int newStatus = Integer.parseInt(field[x-1][y-1].getStatus()) + 1;
+                field[x-1][y-1].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x-1, y-1);
+            }
+        }
+        if(verifyInBounds(x-1, y+1)) { //top right
+            if (!field[x-1][y+1].getStatus().equals("M")) {
+                int newStatus = Integer.parseInt(field[x-1][y+1].getStatus()) + 1;
+                field[x-1][y+1].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x-1, y+1);
+            }
+        }
+        if(verifyInBounds(x+1, y-1)) { //bottom left
+            if (!field[x+1][y-1].getStatus().equals("M")) {
+                int newStatus = Integer.parseInt(field[x+1][y-1].getStatus()) + 1;
+                field[x+1][y-1].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x+1, y-1);
+            }
+        }
+        if(verifyInBounds(x+1, y+1)) { //bottom right
+            if (!field[x+1][y+1].getStatus().equals("M")) {
+                int newStatus = Integer.parseInt(field[x+1][y+1].getStatus()) + 1;
+                field[x+1][y+1].setStatus(String.valueOf(newStatus));
+            }
+            else {
+                incrementAdjacent(x+1, y+1);
+            }
+        }
     }
 
     /**
