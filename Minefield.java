@@ -225,7 +225,18 @@ public class Minefield {
      * @return boolean Return false if game is not over and squares have yet to be revealed, otheriwse return true.
      */
     public boolean gameOver() {
-
+        if (game) { //checks if game is over
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; i < columns; j++) {
+                    if (!field[i][j].getRevealed() && !field[i][j].getStatus().equals("M")) {
+                        return false;
+                    }
+                }
+            }
+            return true; // all non-mine cells are revealed, a win
+        } else { // losing condition
+            return true; // Game over due to hitting a mine, a loss
+        }
     }
 
     /**
