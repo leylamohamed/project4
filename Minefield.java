@@ -403,7 +403,19 @@ public class Minefield {
      *
      * @return String The string that is returned only has the squares that has been revealed to the user or that the user has guessed.
      */
-    public String toString() {
-
+    public String toString() { // How we feeling on this???
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Cell currentCell = field[i][j];
+                if (currentCell.getRevealed()) { //if cell is revealed, append its status to the result
+                    result.append(currentCell.getStatus()).append(" ");
+                } else { //case where cell is not flagged or not revealed
+                    result.append("- ");
+                }
+            }
+            result.append("\n");
+        }
+        return result.toString();
     }
 }
