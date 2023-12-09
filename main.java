@@ -14,10 +14,28 @@ import java.util.Scanner;
  * 4. Once while loop is complete figure out how to determine if the user won or lost. Print appropriate statement.
  */
 
-public class main(String[] args) {
-
-
-    while(/* ! minefield.gameOver() */ ){
+public class main {
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("What difficulty level would you like to play?\na: Easy\nb: Medium\nc: Hard");
+        String mode = s.nextLine();
+        System.out.println("Would you like to play in debug mode? Type: Y or N");
+        String debug = s.nextLine();
+        Minefield minefield;
+        if (mode.equals("a")) {
+            minefield = new Minefield(5, 5, 5);
+        }
+        if (mode.equals("b")) {
+            minefield = new Minefield(9, 9, 12);
+        }
+        if (mode.equals("c")) {
+            minefield = new Minefield(20, 20, 40);
+        } else {
+            System.out.println("Default: Easy mode");
+            minefield = new Minefield();
+        }
+        while (!minefield.gameOver()) {
+            //finish game loop
+        }
     }
-    
 }
