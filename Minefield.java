@@ -372,7 +372,7 @@ public class Minefield {
             for (int j = 0; j < columns; j++) {
                 String status = field[i][j].getStatus();
                 if (status != "-" ) { //if not empty
-                    System.out.print(getColor(field[i][j])+status+"u001b[0m");
+                    System.out.print(getColor(field[i][j])+status+"\u001b[0m");
                 }
                 else {
                     System.out.print(status + " ");
