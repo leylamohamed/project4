@@ -16,11 +16,18 @@ import java.util.Scanner;
 
 public class main {
     public static void main(String[] args) {
+        boolean debug;
         Scanner s = new Scanner(System.in);
         System.out.println("What difficulty level would you like to play?\na: Easy\nb: Medium\nc: Hard");
         String mode = s.nextLine();
         System.out.println("Would you like to play in debug mode? Type: Y or N");
-        String debug = s.nextLine();
+        String answer = s.nextLine();
+
+        if (answer.equals("Y")) {
+            debug = true;
+        }
+        else {debug = false;}
+
         Minefield minefield;
         if (mode.equals("a")) {
             minefield = new Minefield(5, 5, 5);
@@ -34,8 +41,39 @@ public class main {
             System.out.println("Default: Easy mode");
             minefield = new Minefield();
         }
+        //print out minefield
+        if (debug) {
+            minefield.debug();
+        }
+        else {
+            System.out.println(minefield);
+        }
+        //get user's starting position
+        System.out.println("Where would you like to start? Format: [row] [column], separated by a space");
+        String line = s.nextLine();
+        String[] startPosition = line.split(" ");
+        int startX = 0;
+        int startY = 0;
+        if(startPosition.length == 2) { //checks if user entered 2 numbers
+            startX = Integer.parseInt(startPosition[0]);
+            startY = Integer.parseInt(startPosition[1]);
+
+        }
+        else {
+            System.out.println("Wrong format. Enter two integers separated by a space.");
+            minefield.game = false;
+        }
+        if (minefield.verifyInBounds(startX, startY)) {
+            minefield.createMines(startX, startY, minefield.flags);
+            minefield.evaluateField();
+            minefield.revealStartingArea(startX, startY);
+        }
+
         while (!minefield.gameOver()) {
             //finish game loop
+            //ask user to guess cells to place flags, call guess()
+            //handle debug()
+            
         }
     }
 }
