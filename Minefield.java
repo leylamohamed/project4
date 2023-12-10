@@ -35,24 +35,30 @@ public class Minefield {
      * Understand the QGen.java class to know what type of queue you will be working with and methods you can utilize
      */
     
-    /**
-     * Minefield
-     * 
-     * Build a 2-d Cell array representing your minefield.
-     * Constructor
-     * @param rows       Number of rows.
-     * @param columns    Number of columns.
-     * @param flags      Number of flags, should be equal to mines
-     */
+
+    public Minefield() { //default constructor, sets to Easy mode
+        this.rows = 5;
+        this.columns = 5;
+        this.flags = 5;
+        this.field = new Cell[rows][columns];
+        this.game = true;
+        for (int i = 0; i < field.length; i++) { //make all cells blank
+            for (int j = 0; j < field[0].length; j++) {
+                field[i][j] = new Cell(false, "-");
+            }
+        }
+    }
+
     public Minefield(int rows, int columns, int flags) {
         this.rows = rows;
         this.columns = columns;
         this.flags = flags;
         this.field = new Cell[rows][columns];
-        
-        for (int i = 0; i < rows; i++) { //make all cells blank
-            for (int j = 0; j < columns; j++) {
-                field[i][j].setStatus("-");
+        this.game = true;
+
+        for (int i = 0; i < field.length; i++) { //make all cells blank
+            for (int j = 0; j < field[0].length; j++) {
+                field[i][j] = new Cell(false, "-");
             }
         }
     }
@@ -64,7 +70,7 @@ public class Minefield {
      * @function:
      * Evaluate entire array.
      * When a mine is found check the surrounding adjacent tiles. If another mine is found during this check, increment adjacent cells status by 1.
-     * 
+     *
      */
     public void evaluateField() {
         for(int i = 0; i < field.length; i++) {
@@ -76,79 +82,116 @@ public class Minefield {
         }
     }
     public void incrementAdjacent(int x, int y) { //increments the status of adjacent cells if they touch a mine
+        if (!verifyInBounds(x, y)) {
+            return;
+        }
+
         if (verifyInBounds(x, y-1)) { //left
-            if (!field[x][y-1].getStatus().equals("M")) { //check if cell is empty too?
-                int newStatus = Integer.parseInt(field[x][y-1].getStatus()) + 1;
+            if (field[x][y-1].getStatus().equals("-")) { //empty cell
+                int newStatus = 1;
                 field[x][y-1].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x, y-1);
+                if(!field[x][y-1].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x][y-1].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x][y-1].setStatus(String.valueOf(newStatus));
+                }
             }
         }
         if(verifyInBounds(x, y+1)) { //right
-            if (!field[x][y+1].getStatus().equals("M")) {
-                int newStatus = Integer.parseInt(field[x][y+1].getStatus()) + 1;
+            if (field[x][y+1].getStatus().equals("-")) {
+                int newStatus = 1;
                 field[x][y+1].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x, y+1);
+                if (!field[x][y+1].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x][y+1].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x][y+1].setStatus(String.valueOf(newStatus));
+                }
             }
         }
         if(verifyInBounds(x-1, y)) { //top
-            if (!field[x-1][y].getStatus().equals("M")) {
-                int newStatus = Integer.parseInt(field[x-1][y].getStatus()) + 1;
+            if (field[x-1][y].getStatus().equals("-")) {
+                int newStatus = 1;
                 field[x-1][y].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x-1, y);
+                if (!field[x-1][y].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x-1][y].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x-1][y].setStatus(String.valueOf(newStatus));
+                }
             }
         }
         if(verifyInBounds(x+1, y)) { //bottom
-            if (!field[x+1][y].getStatus().equals("M")) {
-                int newStatus = Integer.parseInt(field[x+1][y].getStatus()) + 1;
+            if (field[x+1][y].getStatus().equals("-")) {
+                int newStatus = 1;
                 field[x+1][y].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x+1, y);
+                if (!field[x+1][y].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x+1][y].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x+1][y].setStatus(String.valueOf(newStatus));
+                }
             }
         }
         if(verifyInBounds(x-1, y-1)) { //top left
-            if (!field[x-1][y-1].getStatus().equals("M")) {
-                int newStatus = Integer.parseInt(field[x-1][y-1].getStatus()) + 1;
+            if (field[x-1][y-1].getStatus().equals("-")) {
+                int newStatus = 1;
                 field[x-1][y-1].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x-1, y-1);
+                if (!field[x-1][y-1].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x-1][y-1].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x-1][y-1].setStatus(String.valueOf(newStatus));
+                }
             }
         }
         if(verifyInBounds(x-1, y+1)) { //top right
-            if (!field[x-1][y+1].getStatus().equals("M")) {
-                int newStatus = Integer.parseInt(field[x-1][y+1].getStatus()) + 1;
+            if (field[x-1][y+1].getStatus().equals("-")) {
+                int newStatus = 1;
                 field[x-1][y+1].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x-1, y+1);
+                if (!field[x-1][y+1].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x-1][y+1].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x-1][y+1].setStatus(String.valueOf(newStatus));
+                }
             }
         }
         if(verifyInBounds(x+1, y-1)) { //bottom left
-            if (!field[x+1][y-1].getStatus().equals("M")) {
-                int newStatus = Integer.parseInt(field[x+1][y-1].getStatus()) + 1;
+            if (field[x+1][y-1].getStatus().equals("-")) {
+                int newStatus = 1;
                 field[x+1][y-1].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x+1, y-1);
+                if (!field[x+1][y-1].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x+1][y-1].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x+1][y-1].setStatus(String.valueOf(newStatus));
+                }
             }
         }
         if(verifyInBounds(x+1, y+1)) { //bottom right
-            if (!field[x+1][y+1].getStatus().equals("M")) {
-                int newStatus = Integer.parseInt(field[x+1][y+1].getStatus()) + 1;
+            if (field[x+1][y+1].getStatus().equals("-")) {
+                int newStatus = 1;
                 field[x+1][y+1].setStatus(String.valueOf(newStatus));
             }
             else {
-                incrementAdjacent(x+1, y+1);
+                if (!field[x+1][y+1].getStatus().equals("M")) {
+                    int currStatus = Integer.parseInt(field[x+1][y+1].getStatus());
+                    int newStatus = currStatus + 1;
+                    field[x+1][y+1].setStatus(String.valueOf(newStatus));
+                }
             }
         }
     }
+
 
     /**
      * createMines
@@ -174,6 +217,7 @@ public class Minefield {
                 minesPlaced++;
             }
         }
+
     }
 
     /**
@@ -198,7 +242,9 @@ public class Minefield {
                    answer = false;
                    field[x][y].setStatus("F");
                 }
-                //else case ?
+                //no flags left
+                else {
+                }
             }
             else {
                 if (field[x][y].getStatus().equals("0")) {
@@ -348,9 +394,10 @@ public class Minefield {
         }
         return -1;
     }
-    public boolean verifyInBounds(int x, int y) { //helper method to check if an index is in bounds
+    public boolean verifyInBounds(int x, int y) { //helper method to check if an index i in bounds
         return x >= 0 && x < field.length && y >= 0 && y < field[0].length;
     }
+
 
     /**
      * For both printing methods utilize the ANSI colour codes provided! 
@@ -364,24 +411,29 @@ public class Minefield {
      * @function This method should print the entire minefield, regardless if the user has guessed a square.
      * *This method should print out when debug mode has been selected. 
      */
-     
     public void debug() {
-        System.out.println("  0 1 2 3 4");
+        System.out.print(" ");
+        for(int a = 0; a < columns; a++) {
+            System.out.print(" " + a);
+        }
+        System.out.print("\n");
+
         for(int i = 0; i < rows; i++) {
-            System.out.print(i + " ");
+            System.out.print("\n" + i + " ");
             for (int j = 0; j < columns; j++) {
                 String status = field[i][j].getStatus();
-                if (status != "-" ) { //if not empty
-                    System.out.print(getColor(field[i][j])+status+"\u001b[0m");
+                if (!status.equals( "-") ) { //if not empty
+                    System.out.print(getColor(field[i][j])+status+"\u001b[0m" + " ");
                 }
                 else {
-                    System.out.print(status + " ");
+                    System.out.print("\u001B[33m" +"0" +"\u001b[0m" + " ");
                 }
             }
         }
+        System.out.print("\n");
     }
-    
-   public String getColor(Cell c) { //helper method to assign colors to Cells
+
+    public String getColor(Cell c) { //helper method to assign colors to Cells
         String color = "";
         if (c.getStatus().equals("M")) {
             color = ANSI_RED;
@@ -418,14 +470,22 @@ public class Minefield {
         }
         return color;
     }
+
     /**
      * toString
      *
      * @return String The string that is returned only has the squares that has been revealed to the user or that the user has guessed.
      */
-    public String toString() { // How we feeling on this???
+    public String toString() {
         StringBuilder result = new StringBuilder();
+        result.append(" ");
+        for(int a = 0; a < columns; a++) {
+            result.append(" " + a);
+        }
+        result.append("\n");
+
         for (int i = 0; i < rows; i++) {
+            result.append(i + " ");
             for (int j = 0; j < columns; j++) {
                 Cell currentCell = field[i][j];
                 if (currentCell.getRevealed()) { //if cell is revealed, append its status to the result
@@ -438,4 +498,3 @@ public class Minefield {
         }
         return result.toString();
     }
-}
