@@ -77,17 +77,17 @@ public class main {
             System.out.println(minefield);
         }
 
-        /*while (!minefield.gameOver()) {
-            //finish game loop
+        while (!minefield.gameOver()) {
             //ask user to guess cells to place flags, call guess()
             //handle debug()
-            for(int i = 0; i < currFlags; i++) {
+            //loop until no flags left
+            //check if game is over 
 
 
             }
 
 
-        }*/
+        }
     }
 }
 
