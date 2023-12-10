@@ -339,13 +339,13 @@ public class Minefield {
         String startStatus = startPosition.getStatus();
         queue.add(startPosition);
         while(queue.length() > 0) {
-            Cell removed = queue.remove();
-            removed.setRevealed(true);
-            int currX = getX(removed);
-            int currY = getY(removed);
+           Cell removed = queue.remove();
             if (removed.getStatus().equals("M")) {
                 break;
             }
+            removed.setRevealed(true);
+            int currX = getX(removed);
+            int currY = getY(removed);
 
             //if statements for adjacent cells
             if (verifyInBounds(currX, currY-1) && !field[currX][currY-1].getRevealed()) { //left
