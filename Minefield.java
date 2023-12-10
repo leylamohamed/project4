@@ -489,7 +489,7 @@ public class Minefield {
             for (int j = 0; j < columns; j++) {
                 Cell currentCell = field[i][j];
                 if (currentCell.getRevealed()) { //if cell is revealed, append its status to the result
-                    result.append(currentCell.getStatus()).append(" ");
+                    result.append(getColor(currentCell)+currentCell.getStatus()).append("\u001b[0m").append(" ");
                 } else { //case where cell is not flagged or not revealed
                     result.append("- ");
                 }
@@ -498,3 +498,4 @@ public class Minefield {
         }
         return result.toString();
     }
+}
