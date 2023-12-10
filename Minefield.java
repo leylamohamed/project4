@@ -251,8 +251,28 @@ public class Minefield {
      * @param y      The y value the user entered.
      */
     public void revealZeroes(int x, int y) {
-
-
+        Stack1Gen<Cell> stack = new Stack1Gen<>();
+        Cell startPosition = field[x][y];
+        String startStatus = startPosition.getStatus();
+        stack.push(startPosition);
+        while(!stack.isEmpty()) {
+            Cell removed = stack.pop();
+            removed.setRevealed(true);
+            int currX = getX(removed);
+            int currY = getY(removed);
+            if(verifyInBounds(currX, currY-1) && !field[currX][currY-1].getRevealed() && field[currX][currY-1].getStatus().equals("0")) { //left
+                stack.push(field[currX][currY-1]);
+            }
+            if(verifyInBounds(currX, currY+1) && !field[currX][currY+1].getRevealed() && field[currX][currY+1].getStatus().equals("0")) { //right
+                stack.push(field[currX][currY+1]);
+            }
+            if(verifyInBounds(currX-1, currY) && !field[currX-1][currY].getRevealed() && field[currX-1][currY].getStatus().equals("0")) { //top
+                stack.push(field[currX-1][currY]);
+            }
+            if(verifyInBounds(currX+1, currY) && !field[currX+1][currY].getRevealed() && field[currX+1][currY].getStatus().equals("0")) { //bottom
+                stack.push(field[currX+1][currY]);
+            }
+        }
     }
 
     /**
