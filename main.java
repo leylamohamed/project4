@@ -32,22 +32,19 @@ public class main {
         if (mode.equals("a")) {
             minefield = new Minefield(5, 5, 5);
         }
-        if (mode.equals("b")) {
+        else if (mode.equals("b")) {
             minefield = new Minefield(9, 9, 12);
         }
-        if (mode.equals("c")) {
+        else if (mode.equals("c")) {
             minefield = new Minefield(20, 20, 40);
         } else {
             System.out.println("Default: Easy mode");
             minefield = new Minefield();
         }
         //print out minefield
-        if (debug) {
-            minefield.debug();
-        }
-        else {
-            System.out.println(minefield);
-        }
+
+        System.out.println(minefield);
+
         //get user's starting position
         System.out.println("Where would you like to start? Format: [row] [column], separated by a space");
         String line = s.nextLine();
@@ -68,12 +65,29 @@ public class main {
             minefield.evaluateField();
             minefield.revealStartingArea(startX, startY);
         }
+        else {
+            System.out.println("Out of bounds");
+            minefield.game = false;
+        }
+        int currFlags = minefield.flags;
+        if(debug) {
+            minefield.debug();
+        }
+        else {
+            System.out.println(minefield);
+        }
 
-        while (!minefield.gameOver()) {
+        /*while (!minefield.gameOver()) {
             //finish game loop
             //ask user to guess cells to place flags, call guess()
             //handle debug()
-            
-        }
+            for(int i = 0; i < currFlags; i++) {
+
+
+            }
+
+
+        }*/
     }
 }
+
