@@ -2,8 +2,8 @@ Group Members: Leyla Mohamed (moha1594), Cyrus Vang (vang3339)
 Contributions:
   
 How to compile:
-Assumptions: 
-Bugs: 
+Assumptions: N/A
+Bugs: N/A
 Outside Sources: 
 
 
