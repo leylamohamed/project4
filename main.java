@@ -82,12 +82,40 @@ public class main {
             //handle debug()
             //loop until no flags left
             //check if game is over 
-
-
+            
+            // Print the minefield (debug mode check)
+            if (debugMode) {
+                minefield.debug();
+            } else {
+                System.out.println(minefield.toString());
             }
 
+            // Get user input for guess
+            System.out.println("Enter row and column for your guess (e.g., 0 1):");
+            int guessRow = scanner.nextInt();
+            int guessCol = scanner.nextInt();
 
+            // Get user input for flag placement
+            System.out.println("Do you want to place a flag? (true/false)");
+            boolean flag = scanner.nextBoolean();
+
+            // Process user guess
+            boolean hitMine = minefield.guess(guessRow, guessCol, flag);
+
+            // Check if the game is over
+            if (minefield.gameOver()) {
+                System.out.println("Game over!");
+                if (hitMine) {
+                    System.out.println("You hit a mine. You lose!");
+                } else {
+                    System.out.println("Congratulations! You won!");
+                }
+                break;
+            }
         }
+
+        // Close the scanner
+        scanner.close();
     }
 }
 
