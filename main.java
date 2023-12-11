@@ -1,3 +1,5 @@
+//Written by Leyla Mohamed (moha1594) and Cyrus Vang (vang3339)
+
 //Import Section
 import java.util.Random;
 import java.util.Scanner;
