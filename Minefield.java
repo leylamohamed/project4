@@ -274,7 +274,7 @@ public class Minefield {
     public boolean gameOver() {
         if (game) { //checks if game is over
             for (int i = 0; i < rows; i++) {
-                for (int j = 0; i < columns; j++) {
+                for (int j = 0; j < columns; j++) {
                     if (!field[i][j].getRevealed() && !field[i][j].getStatus().equals("M")) {
                         return false;
                     }
@@ -339,14 +339,15 @@ public class Minefield {
         Cell startPosition = field[x][y];
         String startStatus = startPosition.getStatus();
         queue.add(startPosition);
-        while(queue.length() > 0) {
-           Cell removed = queue.remove();
+        while(queue.length() != 0) {
+            Cell removed = queue.remove();
             if (removed.getStatus().equals("M")) {
                 break;
             }
             removed.setRevealed(true);
             int currX = getX(removed);
             int currY = getY(removed);
+
 
             //if statements for adjacent cells
             if (verifyInBounds(currX, currY-1) && !field[currX][currY-1].getRevealed()) { //left
