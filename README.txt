@@ -1,7 +1,7 @@
 Group Members: Leyla Mohamed (moha1594), Cyrus Vang (vang3339)
-Contributions:
+Contributions: Both members contributed to the construction of the Minefield and main classes.
   
-How to compile:
+How to compile: run the minesweeper game through main.java, taking user input to make decisions for the game.
 Assumptions: N/A
 Bugs: N/A
 Outside Sources: 
