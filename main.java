@@ -1,20 +1,10 @@
 //Written by Leyla Mohamed (moha1594) and Cyrus Vang (vang3339)
 
 //Import Section
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-/*
- * Provided in this class is the neccessary code to get started with your game's implementation
- * You will find a while loop that should take your minefield's gameOver() method as its conditional
- * Then you will prompt the user with input and manipulate the data as before in project 2
- * 
- * Things to Note:
- * 1. Think back to project 1 when we asked our user to give a shape. In this project we will be asking the user to provide a mode. Then create a minefield accordingly
- * 2. You must implement a way to check if we are playing in debug mode or not.
- * 3. When working inside your while loop think about what happens each turn. We get input, user our methods, check their return values. repeat.
- * 4. Once while loop is complete figure out how to determine if the user won or lost. Print appropriate statement.
- */
 
 public class main {
     public static void main(String[] args) {
@@ -59,7 +49,7 @@ public class main {
 
         }
         else {
-            System.out.println("Wrong format. Enter two integers separated by a space.");
+            System.out.println("Wrong format. Enter two integers separated by a space.\nGame Over!");
             minefield.game = false;
         }
         if (minefield.verifyInBounds(startX, startY)) {
@@ -68,23 +58,15 @@ public class main {
             minefield.revealStartingArea(startX, startY);
         }
         else {
-            System.out.println("Out of bounds");
+            System.out.println("Out of bounds.\nGame Over!");
             minefield.game = false;
         }
         int currFlags = minefield.flags;
-        if(debug) {
-            minefield.debug();
-        }
-        else {
-            System.out.println(minefield);
-        }
 
         while (!minefield.gameOver()) {
+            //finish game loop
             //ask user to guess cells to place flags, call guess()
             //handle debug()
-            //loop until no flags left
-            //check if game is over 
-            
             // Print the minefield (debug mode check)
             if (debug) {
                 minefield.debug();
@@ -99,23 +81,38 @@ public class main {
 
             // Get user input for flag placement
             System.out.println("Do you want to place a flag? (true/false)");
-            boolean flag = s.nextBoolean();
+            boolean flag = false;
+            boolean wrongFlag = false;
+            try {
+                flag = s.nextBoolean();
+            }
+            catch (InputMismatchException e) {
+                minefield.game = false;
+                wrongFlag = true;
+
+            }
 
             // Process user guess
             boolean hitMine = minefield.guess(guessRow, guessCol, flag);
+            currFlags--;
+            if (currFlags == 0) {
+                minefield.game = false;
+            }
 
             // Check if the game is over
             if (minefield.gameOver()) {
-                System.out.println("Game over!");
+                if (wrongFlag) {
+                    System.out.println("Wrong format. Please enter either 'true' or 'false'\nGame Over!");
+                    break;
+                }
                 if (hitMine) {
-                    System.out.println("You hit a mine. You lose!");
+                    System.out.println("You hit a mine. You lose!\nGame Over!");
                 } else {
-                    System.out.println("Congratulations! You won!");
+                    System.out.println("Congratulations! You won!\nGame Over!");
                 }
                 break;
             }
         }
-
         // Close the scanner
         s.close();
     }
