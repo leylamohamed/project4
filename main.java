@@ -64,10 +64,6 @@ public class main {
         int currFlags = minefield.flags;
 
         while (!minefield.gameOver()) {
-            //finish game loop
-            //ask user to guess cells to place flags, call guess()
-            //handle debug()
-            // Print the minefield (debug mode check)
             if (debug) {
                 minefield.debug();
             } else {
