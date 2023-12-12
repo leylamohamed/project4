@@ -243,9 +243,6 @@ public class Minefield {
                    answer = false;
                    field[x][y].setStatus("F");
                 }
-                //no flags left
-                else {
-                }
             }
             else {
                 if (field[x][y].getStatus().equals("0")) {
