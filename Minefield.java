@@ -29,12 +29,7 @@ public class Minefield {
     public Cell[][] field;
     public boolean game;
 
-    /*Things to Note:
-     * Please review ALL files given before attempting to write these functions.
-     * Understand the Cell.java class to know what object our array contains and what methods you can utilize
-     * Understand the StackGen.java class to know what type of stack you will be working with and methods you can utilize
-     * Understand the QGen.java class to know what type of queue you will be working with and methods you can utilize
-     */
+    
     
 
     public Minefield() { //default constructor, sets to Easy mode
